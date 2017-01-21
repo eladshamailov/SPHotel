@@ -7,4 +7,5 @@ def dohoteltask(taskname,parameter)
         with dbcon:
             cursor = dbcon.cursor()
             if taskname=="breakfast":
-                fullName=cursor.execute(SELECT FirstName,LastName FROM Residents WHERE )
+                fullName=cursor.execute("SELECT FirstName,LastName FROM Residents WHERE RoomNumber =
+
