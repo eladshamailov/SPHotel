@@ -13,6 +13,7 @@ with dbcon:
 
         def main(args):
             inputfilename = args[1]
+            counter = 0
             if (not os.path.isfile(inputfilename)):  # check if file exists
                 return
             with open(inputfilename) as inputfile:  # try-with-resources
@@ -22,5 +23,14 @@ with dbcon:
                         cursor.execute("INSERT INTO Rooms VALUES(?)", (words[1]))
                         if len(words)==4:
                             cursor.execute("INSERT INTO Residents VALUES(?,?,?)", (words[1]), ((words[2])),(words[3]))
-
+                    else:
+                        if (len(words)==4 and ((words[0]=="clean") or (words[0]=="breakfast") or (words[0]=="wakeup"))):
+                            cursor.execute("INSERT INTO TaskTimes VALUES (?,?,?)", (counter, words[1], words[3],))
+                            cursor.execute("INSERT INTO Tasks VALUES (?,?,?)", (counter, words[0], words[2],))
+                            counter = counter + 1
+                        else:
+                            if (len(words) == 3 and ((words[0] == "clean") or (words[0] == "breakfast") or (words[0] == "wakeup"))):
+                                cursor.execute("INSERT INTO TaskTimes VALUES (?,?,?)", (counter, words[1], words[2],))
+                                cursor.execute("INSERT INTO Tasks VALUES (?,?,?)", (counter, words[0], 0,))
+                                counter = counter+1
 
