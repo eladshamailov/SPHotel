@@ -34,3 +34,6 @@ with dbcon:
                                 cursor.execute("INSERT INTO Tasks VALUES (?,?,?)", (counter, words[0], 0,))
                                 counter = counter+1
 
+
+        if __name__ == '__main__':
+            main(sys.argv)

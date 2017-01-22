@@ -24,3 +24,14 @@ def dohoteltask(taskname,parameter):
                     return ans
                 else:
                     if taskname=="clean":
+                        cursor.execute("SELECT * FROM Rooms")
+                        allRooms = cursor.fetchall()
+                        cursor.execute("SELECT TaskId FROM Tasks WHERE TaskName=(?) AND Parameter=(?)", (taskname, parameter,))
+                        taskId = cursor.fecthone()
+                        string_rooms = ""
+                        for room in allRooms:
+                            Strooms = Strooms + room
+                        print("Rooms ", Strooms, " cleaned at ", str(time.time()))
+                        ans = time.time()
+                        cursor.execute("UPDATE TaskTimes SET NumTimes = NumTimes -1 WHERE TaskId = (?)", (taskId,))
+                        return ans
